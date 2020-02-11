@@ -1,0 +1,39 @@
+Assignment 1 Addendum
+
+There are points about this elaboration of a0 that are always worth discussing.
+
+   I)     What you have lost from the standard library.
+          You no longer have
+            feof() – so you must read() using your file descriptor and watch the count
+            Get this correct early
+
+
+                fgets() – you need to extract the “lines” from read()s of a 4096 buffer.
+                Remember that lines can break across buffers.
+                Get this done in a separate module as though fgets() exists. Tokenizing
+                can proceed because you still have the string library.
+
+               write() is not fprintf(). Just write bytes from an address. (‘binary’) read() is
+               similar but make sure you have the address value in that second parameter
+               correct. You may use fprintf() for output to user.
+   II)    The Files
+          A) Concept
+          a0 created run time data structures you are trying make more permanent. The
+          structs are being written into a ‘random access’ file, with the off_t values paired
+          with the char * song_name. These pairs are written to a second file, a
+          ‘directory’. Notice that the off_t values are like the pointer values used in a0 for
+          lookup.
+          When those two files are written, you can close things up and open the show
+          with a second program that needs only to read in the directory and then use it
+          for access to desired structs. Your binary search is on that directory. Notice that
+          you can write and read that whole directory (stored as an array) with single
+          operations.
+          B) Variable Length Structures
+          You must (re)design your struct or add info to your directory to know how to
+          fill the various length fields for display. DOCUMENT THIS PLEASE.
+
+
+
+          All of the above is some of what we have discussed but I think bears reminder.
+
+
